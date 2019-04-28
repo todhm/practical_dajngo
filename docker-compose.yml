@@ -1,0 +1,12 @@
+version: '3.7'
+services:
+  practical_django:
+    image: fidelkang/s
+    build:
+      context: ./practical_django
+      dockerfile: Dockerfile
+    ports:
+      - 8000:8000
+    volumes:
+      - './practical_django:/usr/src/app'
+    command: python manage.py runserver 0.0.0.0:8000

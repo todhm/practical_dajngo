@@ -1,0 +1,12 @@
+[
+    {
+        "model": "main.producttag",
+        "pk": 1,
+        "fields": {
+            "name": "Novel",
+            "slug": "novel",
+            "description": "novel",
+            "active": true
+        }
+    }
+]
