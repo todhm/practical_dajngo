@@ -1,6 +1,7 @@
 from django.db import models
 from django.core.validators import MinValueValidator
 from django.contrib.auth.models import (AbstractUser,
+                                        PermissionsMixin,
                                         BaseUserManager)
 import logging 
 
@@ -99,6 +100,22 @@ class User(AbstractUser):
     REQUIRED_FIELDS = []
 
     objects = UserManager()
+
+    @property
+    def is_employee(self):
+        return self.is_active and (
+            self.is_superuser
+            or self.is_staff and 
+            self.groups.filter(name="Employees").exists()
+        )
+    
+    @property 
+    def is_dispatcher(self):
+        return self.is_active and (
+            self.is_superuser or self.is_staff and 
+            self.groups.filter(name="Dispatchers").exists()
+        )
+
 
 
     

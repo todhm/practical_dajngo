@@ -29,7 +29,12 @@ ALLOWED_HOSTS = []
 
 
 # Application definition
-
+WEBPACK_LOADER={
+    'DEFAULT':{
+        'BUNDLE_DIR_NAME':'bundles/',
+        'STATS_FILE':os.path.join(BASE_DIR,'webpack-stats.json')
+    }
+}
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -38,7 +43,15 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'main.apps.MainConfig',
+    'webpack_loader',
+    'debug_toolbar',
+    "django_extensions",
+    "django_tables2",
+    "widget_tweaks",
+    "rest_framework",
+    'rest_framework.authtoken',
 ]
+DJANGO_TABLES2_TEMPLATE = 'django_tables2/bootstrap.html'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -48,15 +61,16 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'main.middlewares.basket_middleware'
+    'main.middlewares.basket_middleware',
+    "debug_toolbar.middleware.DebugToolbarMiddleware"
 ]
-
+INTERNAL_IPS = ["127.0.0.1"]
 ROOT_URLCONF = 'booktime.urls'
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR,'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -160,6 +174,21 @@ LOGGING = {
     },
 }
 
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        "rest_framework.authentication.SessionAuthentication",
+        "rest_framework.authentication.TokenAuthentication",
+        "rest_framework.authentication.BasicAuthentication",
+    ),
+    "DEFAULT_PERMISSION_CLASSES": (
+        "rest_framework.permissions.DjangoModelPermissions",
+    ),
+    "DEFAULT_FILTER_BACKENDS": (
+        "django_filters.rest_framework.DjangoFilterBackend",
+    ),
+    "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
+    "PAGE_SIZE": 100,
+}
 
 if not DEBUG:
     EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'

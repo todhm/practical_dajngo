@@ -1,9 +1,18 @@
-from django.urls import path
+from django.urls import path,include
+from rest_framework import routers 
+from main import endpoints
 from django.views.generic.detail import DetailView 
 from django.views.generic import TemplateView 
 from django.contrib.auth import views as auth_views
 from main import views,admin,models,forms
+router = routers.DefaultRouter()
 
+router.register(r'orderlines',endpoints.PaidOrderLineViewSet)
+router.register(r'orders',endpoints.PaidOrderViewSet)
+order_orderline_list = endpoints.OrderOrderLineViewSet.as_view({
+    'get': 'list',
+    'post': 'create'
+})
 urlpatterns = [
     path(
         "product/<slug:slug>/",
@@ -14,6 +23,11 @@ urlpatterns = [
         "products/<slug:tag>/",
         views.ProductListView.as_view(),
         name="products",
+    ),
+    path(
+        "product_image_create/<slug:slug>/",
+        views.ProductImageCreateView.as_view(),
+        name="product_image_create",
     ),
     path(
         "contact-us/",
@@ -82,5 +96,36 @@ urlpatterns = [
         "order/address_select/",
         views.AddressSelectionView.as_view(),
         name="address_select",
-    )
+    ),
+    path(
+        "order-dashboard/",
+        views.OrderView.as_view(),
+        name="order_dashboard",
+    ),
+    path(
+        'api/',
+        include(router.urls),
+    ),
+    path(
+        'api/order_orderline',
+        order_orderline_list,
+        name='order_orderline'
+    ),
+    path(
+        'api/token/',
+        endpoints.CreateTokenView.as_view(),
+        name="token",
+    ),
+    path(
+        "admin/",
+        admin.main_admin.urls
+    ),
+    path(
+        "office-admin/",
+        admin.central_office_admin.urls
+    ),
+    path(
+        "dispatch-admin/",
+        admin.dispatchers_admin.urls
+    ),
 ]

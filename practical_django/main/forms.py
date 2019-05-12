@@ -88,3 +88,4 @@ BasketLineFormSet = inlineformset_factory(
     extra=0,
     widgets={"quantity": widgets.PlusMinusNumberInput()},
 )
+

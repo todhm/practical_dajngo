@@ -3,14 +3,17 @@ from django.urls import reverse
 from unittest.mock import patch 
 from django.contrib import auth 
 from decimal import Decimal 
-from main import models 
-from main import forms
+from main import models ,forms,factories
+from main.factories import user_password
+from django.contrib.auth import get_user_model,authenticate
+from rest_framework.test import APIClient
 
 
 # Create your tests here.
 homepage = reverse("home")
 about_us_page = reverse("about_us")
-
+order_page = reverse("order-list")
+order_orderline_page = reverse("order_orderline")
 class TestPage(TestCase):
 
     def test_home_page_works(self):
@@ -251,3 +254,71 @@ class TestPage(TestCase):
         )
         basket = models.Basket.objects.get(user=user1)
         self.assertEquals(basket.count(),2)
+
+
+class TestOrderView(TestCase):
+    def setUp(self):
+        self.client = APIClient() 
+        self.user = factories.UserFactory()
+        self.client.force_authenticate(self.user)
+
+
+    def test_order_views(self):
+        p1 = factories.ProductFactory()
+        p2 = factories.ProductFactory()
+        a1 = factories.AddressFactory(user=self.user)
+        temp_data = {
+                "status":20,
+                "billing_name":"test1",
+                "billing_address1":a1.address1,
+                "billing_address2":a1.address2,
+                "billing_zip_code":a1.zip_code, 
+                "billing_city":a1.city,
+                "billing_country":a1.country, 
+                "shipping_name":"hello",
+                "shipping_address1": a1.address1,
+                "shipping_address2": a1.address2,
+                "shipping_zip_code": a1.zip_code, 
+                "shipping_city": a1.city,
+                "shipping_country": a1.country
+        }
+        rv = self.client.post(
+            order_page,temp_data
+        )
+        order_list = models.Order.objects.all()
+        self.assertTrue(len(order_list),1)
+    
+        
+
+    def test_order_create_with_line(self):
+        p1 = factories.ProductFactory()
+        p2 = factories.ProductFactory()
+        a1 = factories.AddressFactory(user=self.user)
+        temp_data = {
+                "status":20,
+                "billing_name":"test1",
+                "billing_address1":a1.address1,
+                "billing_address2":a1.address2,
+                "billing_zip_code":a1.zip_code, 
+                "billing_city":a1.city,
+                "billing_country":a1.country, 
+                "shipping_name":"hello",
+                "shipping_address1": a1.address1,
+                "shipping_address2": a1.address2,
+                "shipping_zip_code": a1.zip_code, 
+                "shipping_city": a1.city,
+                "shipping_country": a1.country,
+        }
+        order_line_data = {
+            "order":temp_data,
+            "product":p1.pk,
+            "status":10,
+        }
+        rv = self.client.post(
+            order_orderline_page,order_line_data,format='json'
+        )
+        print(rv.data)
+        order_list = models.Order.objects.all()
+        order_line_list = models.OrderLine.objects.all()
+        self.assertTrue(len(order_list),1)
+        self.assertTrue(len(order_line_list),1)

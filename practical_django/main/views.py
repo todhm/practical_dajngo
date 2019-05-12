@@ -2,7 +2,11 @@ from django.shortcuts import render
 from django.views.generic.list import ListView 
 from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy 
-from django.contrib.auth.mixins import LoginRequiredMixin 
+from django.contrib.auth.mixins import (LoginRequiredMixin ,UserPassesTestMixin)
+from django import forms as django_forms 
+from django.db import models as django_models 
+import django_filters 
+from django_filters.views import FilterView 
 from django.views.generic.edit import FormView, CreateView, UpdateView, DeleteView 
 from main import forms ,models
 import logging 
@@ -39,6 +43,27 @@ class ProductListView(ListView):
         else:
             products = models.Product.objects.active() 
         return products.order_by("name")
+
+class ProductImageCreateView(CreateView):
+    model = models.ProductImage
+    template_name = "main/product_image_create.html"
+    fields = [
+        "image",
+    ]
+
+    def get_success_url(self):
+        slug = self.kwargs.get('slug')
+        success_url = reverse_lazy("product",args=(slug,))
+        return success_url
+
+
+    def form_valid(self,form):
+        obj = form.save(commit=False)
+        slug = self.kwargs.get("slug")
+        obj.product = models.Product.objects.active().filter(slug=slug).first()
+        obj.save() 
+        return super().form_valid(form)
+
 
 
 class SignupView(FormView):
@@ -175,3 +200,37 @@ class AddressSelectionView(LoginRequiredMixin,FormView):
             form.cleaned_data['shipping_address'],
         )
         return super().form_valid(form)
+
+
+class DateInput(django_forms.DateInput):
+
+    input_type = 'date'
+
+class OrderFilter(django_filters.FilterSet):
+
+    class Meta:
+        model = models.Order 
+        fields = {
+            "user__email":['icontains'],
+            'status':['exact'],
+            'date_updated':['gt','lt'],
+        }
+        filter_overrides = {
+            django_models.DateTimeField:{
+                'filter_class':django_filters.DateFilter,
+                'extra':lambda f:{
+                    'widget':DateInput
+                }
+
+            }
+        }
+        
+class OrderView(UserPassesTestMixin,FilterView):
+    filterset_class = OrderFilter 
+    login_url = reverse_lazy("login")
+    def test_func(self):
+        return self.request.user.is_staff is True 
+
+
+
+
