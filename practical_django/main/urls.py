@@ -128,4 +128,9 @@ urlpatterns = [
         "dispatch-admin/",
         admin.dispatchers_admin.urls
     ),
+    path( 
+        "customer-service/<int:order_id>/",
+        views.room,
+        name="cs_chat",
+    )
 ]

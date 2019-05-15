@@ -28,6 +28,13 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 
+REDIS_URL = os.environ.get('REDIS_URL')
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {"hosts": [REDIS_URL]},
+    }
+}
 # Application definition
 WEBPACK_LOADER={
     'DEFAULT':{
@@ -35,22 +42,26 @@ WEBPACK_LOADER={
         'STATS_FILE':os.path.join(BASE_DIR,'webpack-stats.json')
     }
 }
+
 INSTALLED_APPS = [
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-    'main.apps.MainConfig',
-    'webpack_loader',
-    'debug_toolbar',
+    "channels",
+    "django.contrib.admin",
+    "django.contrib.auth",
+    "django.contrib.contenttypes",
+    "django.contrib.sessions",
+    "django.contrib.messages",
+    "django.contrib.staticfiles",
+    "webpack_loader",
     "django_extensions",
+    "debug_toolbar",
+    "django_filters",
     "django_tables2",
-    "widget_tweaks",
     "rest_framework",
-    'rest_framework.authtoken',
+    "rest_framework.authtoken",
+    "widget_tweaks",
+    "main.apps.MainConfig",
 ]
+
 DJANGO_TABLES2_TEMPLATE = 'django_tables2/bootstrap.html'
 
 MIDDLEWARE = [
@@ -66,6 +77,7 @@ MIDDLEWARE = [
 ]
 INTERNAL_IPS = ["127.0.0.1"]
 ROOT_URLCONF = 'booktime.urls'
+ASGI_APPLICATION = "booktime.routing.application"
 
 TEMPLATES = [
     {

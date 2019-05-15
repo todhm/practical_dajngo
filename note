@@ -1,0 +1,2 @@
+curl -o main/static/js/reconnecting-websocket.min.js https://raw.githubusercontent.com/joewalnes/reconnecting-websocket/master/reconnecting-websocket.min.js 
+
