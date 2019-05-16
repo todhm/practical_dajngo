@@ -5,4 +5,12 @@ from .auth import TokenGetAuthMiddlewareStack
 import main.routing
 
 
-application = ProtocolTypeRouter({})
+
+application = ProtocolTypeRouter(
+    {
+        # (http->django views is added by default)
+        "websocket": TokenGetAuthMiddlewareStack(
+            URLRouter(main.routing.websocket_urlpatterns)
+        ),
+    }
+)
