@@ -10,3 +10,12 @@ websocket_urlpatterns = [
         consumers.ChatConsumer,
     )
 ]
+
+http_urlpatterns = [
+    path(
+        "customer-service/notify/",
+        AuthMiddlewareStack(
+            consumers.ChatNotifyConsumer
+        )
+    ),
+]
