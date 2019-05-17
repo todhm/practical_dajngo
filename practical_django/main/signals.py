@@ -7,6 +7,9 @@ from django.dispatch import receiver
 from .models import ProductImage 
 from django.contrib.auth.signals import user_logged_in
 from .models import Basket,ProductImage,OrderLine,Order
+from django.conf import settings 
+from rest_framework.authtoken.models import Token
+
 
 THUMBNAIL_SIZE=(300,300)
 logger = logging.getLogger(__name__)
@@ -64,3 +67,9 @@ def orderline_to_order_status(sender,instance,**kwargs):
         )
         instance.order.status = Order.DONE 
         instance.order.save()
+
+
+@receiver(post_save,sender=settings.AUTH_USER_MODEL)
+def create_auth_token(sender,instance=None,created=False,**kwargs):
+    if created: 
+        Token.objects.create(user=instance)

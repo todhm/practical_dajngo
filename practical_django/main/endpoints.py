@@ -111,3 +111,20 @@ class CreateTokenView(ObtainAuthToken):
     renderer_classes = api_settings.DEFAULT_RENDERER_CLASSES
 
 # Create your views here.
+
+@api_view()
+@permission_classes((IsAuthenticated,))
+def my_orders(request):
+    user = request.user 
+    orders = models.Order.objects.filter(user=user).order_by("-date_added")
+    data = []
+    for order in orders: 
+        data.append(
+            {
+                "id":order.id, 
+                "image":order.mobile_thumb_url, 
+                "summary":order.summary, 
+                "price":order.total_price, 
+            }
+        )
+    return Response(data)

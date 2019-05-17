@@ -4,6 +4,7 @@ from django.urls import re_path
 from .auth import TokenGetAuthMiddlewareStack
 from channels.auth import AuthMiddlewareStack
 import main.routing
+from main import consumers
 
 
 application = ProtocolTypeRouter(
@@ -15,6 +16,6 @@ application = ProtocolTypeRouter(
         "http": URLRouter(
             main.routing.http_urlpatterns
             + [re_path(r"", AsgiHandler)]
-        ),
+        )
     }
 )
