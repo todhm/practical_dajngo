@@ -53,6 +53,7 @@ class ChatNotifyConsumer(AsyncHttpConsumer):
 
     async def stream(self):
         r_conn = await aioredis.create_redis(settings.REDIS_URL)
+
         while self.is_streaming:
             active_chats = await r_conn.keys(
                 "customer-service_*"
@@ -96,7 +97,7 @@ class ChatNotifyConsumer(AsyncHttpConsumer):
                 )
                 await asyncio.sleep(5)
 
-    async def disconnect(self):
+    async def http_disconnect(self):
         logger.info(
             "Closing notify stream for user %s",
             self.scope.get("user"),
