@@ -159,3 +159,19 @@ JavaScript error: resource://gre/modules/Sqlite.jsm, line 834: Error: Connection
 1558011286857	Marionette	INFO	Listening on port 56074
 1558011286941	Marionette	WARN	TLS certificate errors will be ignored for this session
 1558011288936	Marionette	INFO	Stopped listening on port 56074
+1558160854803	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "-marionette" "-foreground" "-no-remote" "-profile" "/var/folders/xs/cfhkdx913_90kcw7kpqr7wqr0000gp/T/rust_mozprofile.6QFs0faKM6a5"
+1558160855740	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1558160855744	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1558160855744	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1558160857879	Marionette	INFO	Listening on port 50171
+1558160857907	Marionette	WARN	TLS certificate errors will be ignored for this session
+1558160858915	Marionette	INFO	Stopped listening on port 50171
+JavaScript error: resource://gre/modules/Sqlite.jsm, line 834: Error: Connection is not open.
+1558161034116	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "-marionette" "-foreground" "-no-remote" "-profile" "/var/folders/xs/cfhkdx913_90kcw7kpqr7wqr0000gp/T/rust_mozprofile.az4rz9K8K9HJ"
+1558161034752	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1558161034752	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1558161034752	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1558161036773	Marionette	INFO	Listening on port 50276
+1558161036881	Marionette	WARN	TLS certificate errors will be ignored for this session
+1558161037820	Marionette	INFO	Stopped listening on port 50276
+JavaScript error: resource://gre/modules/Sqlite.jsm, line 834: Error: Connection is not open.

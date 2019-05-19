@@ -9,7 +9,7 @@ from selenium.webdriver.firefox.webdriver import WebDriver
 from selenium.webdriver.firefox.options import Options
 from main import models
 
-
+@tag('e2e')
 class FrontendTests(StaticLiveServerTestCase):
     @classmethod
     def setUpClass(cls):

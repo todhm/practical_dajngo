@@ -1,0 +1,67 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders with orders specified 1`] = `
+<View
+  style={
+    Object {
+      "borderColor": "orange",
+      "borderWidth": 1,
+      "flex": 1,
+    }
+  }
+>
+  <Text>
+    Chat for order: 
+    1
+    - 
+    shipped
+  </Text>
+  <TextInput
+    allowFontScaling={true}
+    onSubmitEditing={[Function]}
+    placeholder="Enter a message..."
+    returnKeyType="send"
+    style={
+      Object {
+        "borderWidth": 1,
+        "height": 40,
+        "margin": 10,
+      }
+    }
+    underlineColorAndroid="transparent"
+  />
+</View>
+`;
+
+exports[`renders with orders specified 2`] = `
+<View
+  style={
+    Object {
+      "borderColor": "orange",
+      "borderWidth": 1,
+      "flex": 1,
+    }
+  }
+>
+  <Text>
+    Chat for order: 
+    1
+    - 
+    shipped
+  </Text>
+  <TextInput
+    allowFontScaling={true}
+    onSubmitEditing={[Function]}
+    placeholder="Enter a message..."
+    returnKeyType="send"
+    style={
+      Object {
+        "borderWidth": 1,
+        "height": 40,
+        "margin": 10,
+      }
+    }
+    underlineColorAndroid="transparent"
+  />
+</View>
+`;

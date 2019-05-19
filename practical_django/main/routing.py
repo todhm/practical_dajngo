@@ -20,6 +20,6 @@ http_urlpatterns = [
     ),
     path(
         "mobile-api/my-orders/<int:order_id>/tracker/",
-        AuthMiddlewareStack(consumers.)
+        TokenGetAuthMiddlewareStack(consumers.OrderTrackerConsumer),
     )
 ]

@@ -38,8 +38,9 @@ class OrderLineFactory(factory.django.DjangoModelFactory):
     class Meta: 
         model = models.OrderLine
 
+
 class OrderFactory(factory.django.DjangoModelFactory):
     user = factory.SubFactory(UserFactory)
 
-    class Meta: 
+    class Meta:
         model = models.Order

@@ -25,7 +25,7 @@ SECRET_KEY = 'wcqy)aqj7_2tk*fvb4oy#47ci)jo(=_6-kl@glvp3682mcof90'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 REDIS_URL = os.environ.get('REDIS_URL')
@@ -44,6 +44,7 @@ WEBPACK_LOADER={
 }
 
 INSTALLED_APPS = [
+    "whitenoise.runserver_nostatic",
     "channels",
     "django.contrib.admin",
     "django.contrib.auth",
@@ -66,6 +67,7 @@ DJANGO_TABLES2_TEMPLATE = 'django_tables2/bootstrap.html'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    "whitenoise.middleware.WhiteNoiseMiddleware"
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -168,6 +170,9 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+STATIC_ROOT = os.path.join(BASE_DIR,'staticfiles')
+if not DEBUG: 
+    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFileStorage'
 
 MEDIA_ROOT = os.path.join(BASE_DIR,'media')
 MEDIA_URL = '/media/'
@@ -228,3 +233,4 @@ else:
     EMAIL_BACKEND=(
         "django.core.mail.backends.console.EmailBackend"
     )
+

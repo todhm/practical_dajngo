@@ -1,0 +1,96 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders without crashing 1`] = `
+<View
+  style={
+    Object {
+      "flex": 1,
+      "paddingTop": 25,
+    }
+  }
+>
+  <View
+    style={
+      Object {
+        "borderColor": "blue",
+        "borderWidth": 1,
+        "height": 200,
+      }
+    }
+  >
+    <Text>
+      Your BookTime orders
+    </Text>
+    <View
+      accessible={true}
+      isTVSelectable={true}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Object {
+          "borderColor": "yellow",
+          "borderWidth": 1,
+          "height": 52,
+        }
+      }
+    >
+      <View
+        style={
+          Array [
+            Object {
+              "alignSelf": "stretch",
+              "flex": 1,
+              "flexDirection": "row",
+            },
+            null,
+          ]
+        }
+      >
+        <View
+          style={
+            Object {
+              "borderColor": "green",
+              "borderWidth": 1,
+              "height": 50,
+              "width": 50,
+            }
+          }
+        >
+          <View />
+        </View>
+        <Text
+          style={
+            Object {
+              "alignSelf": "stretch",
+              "borderColor": "red",
+              "borderWidth": 1,
+              "flex": 1,
+            }
+          }
+        >
+          2xaa
+        </Text>
+        <Text
+          style={
+            Object {
+              "borderColor": "blue",
+              "borderWidth": 1,
+            }
+          }
+        >
+          22
+        </Text>
+      </View>
+    </View>
+  </View>
+  <View>
+    <Text>
+      No order selected for chat
+    </Text>
+  </View>
+</View>
+`;
